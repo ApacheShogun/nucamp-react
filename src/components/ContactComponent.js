@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem,
+    Button, Form, FormGroup, Label, Input, Col, FormFeedback } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class Contact extends Component {
@@ -13,9 +14,15 @@ class Contact extends Component {
             email: '',
             agree: false,
             contactType: 'By Phone',
-            feedback: ''
+            feedback: '',
+            touched: {
+                firstName: false,
+                lastName: false,
+                phoneNum: false,
+                email: false
+            }
         };
-
+      
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -79,8 +86,8 @@ class Contact extends Component {
         event.preventDefault();
     }
 
-
     render(){
+        const errors = this.validate(this.state.firstName, this.state.lastName, this.state.phoneNum, this.state.email);
         return (
             <div className="container">
                 <div className="row">
@@ -164,13 +171,19 @@ class Contact extends Component {
                                     <FormFeedback>{errors.email}</FormFeedback>
                                 </Col>
                             </FormGroup>
+                            <FormGroup row>
+                                <Col md={{size: 10, offset: 2}}>
+                                    <Button type="submit" color="primary">
+                                        Send Feedback
+                                    </Button>
+                                </Col>
+                            </FormGroup>
                         </Form>
                     </div>
                 </div>
-                const errors = this.validate(this.state.firstName, this.state.lastName, this.state.phoneNum, this.state.email);
             </div>
         );
     }
 }
-        
+
 export default Contact;
